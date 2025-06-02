@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React Day 1 – Profile Card Task (with Props)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f2f5;
+      color: #2c3e50;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      padding: 40px 20px;
+      color: white;
+      text-align: center;
+      border-bottom: 4px solid #5b6ee1;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    h2 {
+      color: #3d5afe;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #333;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background-color: #e9ecf1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.95em;
+      color: #2b3e5a;
+    }
+
+    pre {
+      background: #eef1f5;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .highlight, .bonus, .structure {
+      padding: 16px;
+      border-left: 5px solid;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+
+    .highlight {
+      background-color: #e3f2fd;
+      border-color: #42a5f5;
+    }
+
+    .bonus {
+      background-color: #f1f8e9;
+      border-color: #8bc34a;
+    }
+
+    .structure {
+      background-color: #fff8e1;
+      border-color: #fbc02d;
+      font-family: monospace;
+    }
+
+    .structure br {
+      line-height: 1.8;
+    }
+
+    .card-section {
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-top: 0.5em;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 20px;
+      }
+
+      .header h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📘 React Day 1 – Task: Profile Card using Props</h1>
+  </div>
+
+  <div class="container">
+
+    <div class="card card-section">
+      <h2>🔍 Learning Objectives</h2>
+      <ul>
+        <li>External CSS ka sahi use React me</li>
+        <li>Local image ko component me import karna</li>
+        <li>JSX me common HTML tags aur attributes ka use</li>
+      </ul>
+    </div>
+
+    <div class="card card-section">
+      <h2>📚 Concepts to Review</h2>
+
+      <h3>🔹 1. External CSS in React</h3>
+      <p>Har React component ke saath ek separate CSS file ho sakti hai:</p>
+      <pre><code>import './Profile.css';</code></pre>
+      <p>React me <code>class</code> ki jagah <code>className</code> use hota hai:</p>
+      <pre><code>&lt;div className="container"&gt;Content&lt;/div&gt;</code></pre>
+
+      <h3>🔹 2. Local Image Import in React</h3>
+      <p>Local image ko import karne ka tarika:</p>
+      <pre><code>import myImage from '../assets/myphoto.jpg';</code></pre>
+      <p>Uske baad use JSX me lagate hain:</p>
+      <pre><code>&lt;img src={myImage} alt="Profile Photo" /&gt;</code></pre>
+
+      <h3>🔹 3. Common JSX Tags and Attributes</h3>
+      <ul>
+        <li><code>&lt;img src="..." alt="..." /&gt;</code> – Image</li>
+        <li><code>&lt;a href="..." target="_blank" rel="noopener noreferrer"&gt;Visit&lt;/a&gt;</code> – Link</li>
+        <li><code>className="..."</code> – CSS class</li>
+      </ul>
+    </div>
+
+    <div class="card highlight">
+      <strong>✅ TASK:</strong><br><br>
+      Ek reusable React component banao jiska naam <code>Profile.js</code> ho.  
+      Yeh component props ke zariye image, name, description aur link receive karega.
+    </div>
+
+    <div class="card card-section">
+      <h2>🛠️ Task Requirements</h2>
+      <ul>
+        <li><strong>Component name:</strong> <code>Profile.js</code></li>
+        <li><strong>Props:</strong> <code>image</code>, <code>name</code>, <code>description</code>, <code>link</code></li>
+        <li><strong>Image:</strong> Local image import karein aur props se bhejein</li>
+        <li><strong>CSS file:</strong> <code>Profile.css</code> ho aur same folder me ho</li>
+        <li><strong>Card ke andar:</strong> Image, Name, Description, Website Link ho</li>
+        <li><strong>Use proper JSX:</strong> <code>className</code>, <code>alt</code>, <code>href</code>, etc.</li>
+      </ul>
+    </div>
+
+    <div class="card structure">
+      📁 Recommended Folder Structure:<br><br>
+      /src<br>
+      ├── App.js<br>
+      ├── /components<br>
+      │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Profile.js<br>
+      │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Profile.css<br>
+      ├── /assets<br>
+      │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── profile1.jpg<br>
+      └── App.css
+    </div>
+
+    <div class="card card-section">
+      <h2>📌 Additional Instructions</h2>
+      <ul>
+        <li>App.js ke andar multiple Profile components render karein</li>
+        <li>Har Profile me alag-alag data pass karein (images, names, descriptions, links)</li>
+        <li>Hardcoded content na likhein, sab props se aaye</li>
+      </ul>
+    </div>
+
+    <div class="card bonus">
+      <strong>✨ Bonus (Optional):</strong>
+      <ul>
+        <li>Hover par link ka color change ho</li>
+        <li>Image circular ho: <code>border-radius: 50%</code></li>
+        <li>Card center aligned aur responsive ho</li>
+        <li>Hover transitions (button/image par)</li>
+      </ul>
+    </div>
+
+    <div class="card card-section">
+      <h2>🎓 Learning Outcome</h2>
+      <p>Is task ke baad students reusable components banana, props use karna, aur component-based CSS manage karna seekh jaayenge. Ye React ke core skills hain.</p>
+    </div>
+
+  </div>
+</body>
+</html>
