@@ -3,164 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>React Day 1 – Profile Card Task (with Props)</title>
+  <title>React Day 1 – Profile Card Task</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #f0f2f5;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
       color: #2c3e50;
+      padding: 0 15px;
     }
 
     .header {
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      padding: 40px 20px;
-      color: white;
       text-align: center;
-      border-bottom: 4px solid #5b6ee1;
+      padding: 60px 20px 40px;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
     }
 
     .header h1 {
-      margin: 0;
-      font-size: 2.2rem;
+      font-size: 2.4rem;
+      margin-bottom: 10px;
     }
 
     .container {
       max-width: 960px;
-      margin: 40px auto;
-      padding: 20px;
+      margin: 30px auto;
     }
 
     .card {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      padding: 30px;
-      margin-bottom: 30px;
-      transition: transform 0.2s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      margin-bottom: 25px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
+    .card.collapsed .card-content {
+      display: none;
     }
 
-    h2 {
-      color: #3d5afe;
-      margin-top: 0;
+    .card h2 {
+      font-size: 1.4rem;
+      color: #4b6cb7;
       margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    h3 {
-      margin-top: 30px;
+    .card h3 {
       color: #333;
+      margin-top: 25px;
     }
 
     ul {
       padding-left: 20px;
+      margin-top: 10px;
     }
 
     code {
-      background-color: #e9ecf1;
+      background-color: #eef2f7;
       padding: 4px 8px;
-      border-radius: 6px;
+      border-radius: 5px;
       font-family: monospace;
-      font-size: 0.95em;
-      color: #2b3e5a;
     }
 
     pre {
-      background: #eef1f5;
-      padding: 15px;
+      background: #f4f6fb;
+      padding: 12px;
       border-radius: 8px;
       overflow-x: auto;
+      margin: 10px 0;
     }
 
     .highlight, .bonus, .structure {
-      padding: 16px;
-      border-left: 5px solid;
-      border-radius: 10px;
+      border-left: 6px solid;
+      border-radius: 12px;
+      padding: 18px;
       margin: 30px 0;
     }
 
     .highlight {
-      background-color: #e3f2fd;
+      background: #e3f2fd;
       border-color: #42a5f5;
     }
 
     .bonus {
-      background-color: #f1f8e9;
+      background: #f1f8e9;
       border-color: #8bc34a;
     }
 
     .structure {
-      background-color: #fff8e1;
+      background: #fff8e1;
       border-color: #fbc02d;
       font-family: monospace;
+      white-space: pre-line;
     }
 
-    .structure br {
-      line-height: 1.8;
+    button.scroll-btn {
+      background: #42a5f5;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin: 20px auto;
+      display: block;
     }
 
-    .card-section {
-      margin-bottom: 40px;
+    button.scroll-btn:hover {
+      background: #1e88e5;
     }
 
-    p {
-      margin-top: 0.5em;
+    .toggle-icon {
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .collapsed .toggle-icon {
+      transform: rotate(90deg);
     }
 
     @media (max-width: 600px) {
-      .card {
-        padding: 20px;
-      }
-
       .header h1 {
         font-size: 1.6rem;
+      }
+      .card h2 {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
+
   <div class="header">
     <h1>📘 React Day 1 – Task: Profile Card using Props</h1>
+    <button class="scroll-btn" onclick="scrollToBonus()">🎁 Jump to Bonus</button>
   </div>
 
   <div class="container">
 
-    <div class="card card-section">
-      <h2>🔍 Learning Objectives</h2>
-      <ul>
-        <li>External CSS ka sahi use React me</li>
-        <li>Local image ko component me import karna</li>
-        <li>JSX me common HTML tags aur attributes ka use</li>
-      </ul>
+    <div class="card">
+      <h2 onclick="toggleCard(this)">🔍 Learning Objectives <span class="toggle-icon">▼</span></h2>
+      <div class="card-content">
+        <ul>
+          <li>External CSS ka sahi use React me</li>
+          <li>Local image ko component me import karna</li>
+          <li>JSX me common HTML tags aur attributes ka use</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="card card-section">
-      <h2>📚 Concepts to Review</h2>
+   <div class="card">
+  <h2 onclick="toggleCard(this)">📚 Concepts to Review <span class="toggle-icon">▼</span></h2>
+  <div class="card-content">
+    <h3>🔹 1. External CSS in React</h3>
+    <p>Har React component ke saath ek separate CSS file ho sakti hai:</p>
+    <pre><code>import './Profile.css';</code></pre>
+    <p>React me <code>class</code> ki jagah <code>className</code> use hota hai:</p>
+    <pre><code>&lt;div className="container"&gt;Content&lt;/div&gt;</code></pre>
 
-      <h3>🔹 1. External CSS in React</h3>
-      <p>Har React component ke saath ek separate CSS file ho sakti hai:</p>
-      <pre><code>import './Profile.css';</code></pre>
-      <p>React me <code>class</code> ki jagah <code>className</code> use hota hai:</p>
-      <pre><code>&lt;div className="container"&gt;Content&lt;/div&gt;</code></pre>
+    <h3>🔹 2. Local Image Import in React</h3>
+    <p>Local image ko import karne ka tarika:</p>
+    <pre><code>import myImage from '../assets/myphoto.jpg';</code></pre>
+    <p>Uske baad use JSX me lagate hain:</p>
+    <pre><code>&lt;img src={myImage} alt="Profile Photo" /&gt;</code></pre>
 
-      <h3>🔹 2. Local Image Import in React</h3>
-      <p>Local image ko import karne ka tarika:</p>
-      <pre><code>import myImage from '../assets/myphoto.jpg';</code></pre>
-      <p>Uske baad use JSX me lagate hain:</p>
-      <pre><code>&lt;img src={myImage} alt="Profile Photo" /&gt;</code></pre>
+    <h3>🔹 3. Common JSX Tags and Attributes</h3>
+    <ul>
+      <li><code>&lt;img src="..." alt="..." /&gt;</code> – Image</li>
+      <li><code>&lt;a href="..." target="_blank" rel="noopener noreferrer"&gt;Visit&lt;/a&gt;</code> – Link</li>
+      <li><code>className="..."</code> – CSS class</li>
+    </ul>
+  </div>
+</div>
 
-      <h3>🔹 3. Common JSX Tags and Attributes</h3>
-      <ul>
-        <li><code>&lt;img src="..." alt="..." /&gt;</code> – Image</li>
-        <li><code>&lt;a href="..." target="_blank" rel="noopener noreferrer"&gt;Visit&lt;/a&gt;</code> – Link</li>
-        <li><code>className="..."</code> – CSS class</li>
-      </ul>
-    </div>
 
     <div class="card highlight">
       <strong>✅ TASK:</strong><br><br>
@@ -168,16 +200,18 @@
       Yeh component props ke zariye image, name, description aur link receive karega.
     </div>
 
-    <div class="card card-section">
-      <h2>🛠️ Task Requirements</h2>
-      <ul>
-        <li><strong>Component name:</strong> <code>Profile.js</code></li>
-        <li><strong>Props:</strong> <code>image</code>, <code>name</code>, <code>description</code>, <code>link</code></li>
-        <li><strong>Image:</strong> Local image import karein aur props se bhejein</li>
-        <li><strong>CSS file:</strong> <code>Profile.css</code> ho aur same folder me ho</li>
-        <li><strong>Card ke andar:</strong> Image, Name, Description, Website Link ho</li>
-        <li><strong>Use proper JSX:</strong> <code>className</code>, <code>alt</code>, <code>href</code>, etc.</li>
-      </ul>
+    <div class="card">
+      <h2 onclick="toggleCard(this)">🛠️ Task Requirements <span class="toggle-icon">▼</span></h2>
+      <div class="card-content">
+        <ul>
+          <li><strong>Component name:</strong> <code>Profile.js</code></li>
+          <li><strong>Props:</strong> <code>image</code>, <code>name</code>, <code>description</code>, <code>link</code></li>
+          <li><strong>Image:</strong> Local image import karein aur props se bhejein</li>
+          <li><strong>CSS file:</strong> <code>Profile.css</code> ho aur same folder me ho</li>
+          <li><strong>Card ke andar:</strong> Image, Name, Description, Website Link ho</li>
+          <li><strong>Use proper JSX:</strong> <code>className</code>, <code>alt</code>, <code>href</code>, etc.</li>
+        </ul>
+      </div>
     </div>
 
     <div class="card structure">
@@ -192,16 +226,18 @@
       └── App.css
     </div>
 
-    <div class="card card-section">
-      <h2>📌 Additional Instructions</h2>
-      <ul>
-        <li>App.js ke andar multiple Profile components render karein</li>
-        <li>Har Profile me alag-alag data pass karein (images, names, descriptions, links)</li>
-        <li>Hardcoded content na likhein, sab props se aaye</li>
-      </ul>
+    <div class="card">
+      <h2 onclick="toggleCard(this)">📌 Additional Instructions <span class="toggle-icon">▼</span></h2>
+      <div class="card-content">
+        <ul>
+          <li>App.js ke andar multiple Profile components render karein</li>
+          <li>Har Profile me alag-alag data pass karein (images, names, descriptions, links)</li>
+          <li>Hardcoded content na likhein, sab props se aaye</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="card bonus">
+    <div class="card bonus" id="bonus-section">
       <strong>✨ Bonus (Optional):</strong>
       <ul>
         <li>Hover par link ka color change ho</li>
@@ -211,11 +247,24 @@
       </ul>
     </div>
 
-    <div class="card card-section">
-      <h2>🎓 Learning Outcome</h2>
-      <p>Is task ke baad students reusable components banana, props use karna, aur component-based CSS manage karna seekh jaayenge. Ye React ke core skills hain.</p>
+    <div class="card">
+      <h2 onclick="toggleCard(this)">🎓 Learning Outcome <span class="toggle-icon">▼</span></h2>
+      <div class="card-content">
+        <p>Is task ke baad  reusable components banana, props use karna, aur component-based CSS manage karna seekh jaayenge. Ye React ke core skills hain.</p>
+      </div>
     </div>
 
   </div>
+
+  <script>
+    function toggleCard(header) {
+      const card = header.parentElement;
+      card.classList.toggle('collapsed');
+    }
+
+    function scrollToBonus() {
+      document.getElementById('bonus-section').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
